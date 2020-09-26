@@ -4,7 +4,7 @@ class Card {
   }
   
   rank() { return this.card.rank; }
-  suit() { return tihs.card.suit; }
+  suit() { return this.card.suit; }
   
   value() { 
     if(['J','Q','K','A'].includes(this.card.rank)) {

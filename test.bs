@@ -65,4 +65,6 @@ curl -d 'action=bet_request&game_state={
             "suit": "clubs"
         }
     ]
-    }' https://poker-player-js-ordogivett162883.codeanyapp.com/
+  }' https://poker-player-js-ordogivett162883.codeanyapp.com/
+
+echo ""

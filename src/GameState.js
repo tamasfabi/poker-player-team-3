@@ -25,7 +25,7 @@ class GameState {
     return new PlayerState(this.gameState.players[this.gameState.in_action]);
   }
   
-  toCall() { return this.currentBuyIn - this.me().bet; }
+  toCall() { return this.currentBuyIn() - this.me().bet(); }
   toRaise() { return this.toCall() + this.minimumRaise(); }
   
 }

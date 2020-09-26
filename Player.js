@@ -1,4 +1,4 @@
-const GameState = require('./GameState');
+const GameState = require('./src/GameState');
 
 class Player {
   static get VERSION() {

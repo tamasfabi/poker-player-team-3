@@ -13,12 +13,12 @@ class PlayerState {
   
   hasPocketPair() { 
     const cards = this.holeCards();
-    return cards[0].rank == cards[1].rank;
+    return cards[0].rank() === cards[1].rank();
   }
   
   hasPocketSuited() {
     const cards = this.holeCards();
-    return cards[0].suit == cards[1].suit;
+    return cards[0].suit() === cards[1].suit();
   }
   
   highestPocketValue() {    
