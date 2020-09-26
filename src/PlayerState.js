@@ -23,7 +23,35 @@ class PlayerState {
   
   highestPocketValue() {    
     const cards = this.holeCards(); 
-    return Math.max(cards[0].value(), cards[1].value())
+    return Math.max(...cards.map(c => c.value()));
+  }
+  
+  pocketGap() {
+    const cards = this.holeCards(); 
+    return Math.abs(cards[0].value() - cards[1].value()) - 1;
+  }
+  
+  chenScore() {
+    const cards = this.holeCards();
+    var score = Math.max(...cards.map(c => c.chenScore()));
+    
+    if(this.hasPocketPair()) {
+      score = Math.max(5, score * 2);
+    } else if(this.pocketGap() < 3) {
+      score -= this.pocketGap();
+    } else if(this.pocketGap() === 3) {
+      score -= 4;
+    } else {
+      score -= 5;
+    }
+    
+    if([0,1].includes(this.pocketGap()) && this.highestPocketValue() < 12) {
+      score += 1;
+    }
+    
+    if(this.hasPocketSuited()) score += 2;
+
+    return Math.ceil(score);
   }
 }
 

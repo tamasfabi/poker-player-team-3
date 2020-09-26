@@ -13,6 +13,15 @@ class Card {
       return parseInt(this.card.rank);
     }
   }
+  
+  chenScore() {
+    return {
+      "A": 10,
+      "K": 8,
+      "Q": 7,
+      "J": 6
+    }[this.rank()] || this.value() / 2;
+  }
 }
 
 module.exports = Card;

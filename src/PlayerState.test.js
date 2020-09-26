@@ -20,15 +20,15 @@ const buildPlayerWithOffSuitCards = (rank1, rank2) => {
   });
 }
 
-const buildPlayerWithOffSuitedCards = () => {
+const buildPlayerWithOffSuitedCards = (rank1, rank2) => {
   return buildPlayerStateWithDefaults({
     "hole_cards": [
       {
-          "rank": "6",
+          "rank": rank1,
           "suit": "hearts"
       },
       {
-          "rank": "K",
+          "rank": rank2,
           "suit": "hearts"
       }
     ]
@@ -45,7 +45,7 @@ test('Checks for pair correctly', () => {
 });
 
 test('Checks for suited correctly', () => {
-  expect(buildPlayerWithOffSuitedCards().hasPocketSuited()).toBe(true);
+  expect(buildPlayerWithOffSuitedCards("6","K").hasPocketSuited()).toBe(true);
   expect(buildPlayerWithOffSuitCards("A","A").hasPocketSuited()).toBe(false);
 });
 
@@ -59,3 +59,42 @@ test('Finds highest value correctly', () => {
   expect(buildPlayerWithOffSuitCards("J","J").highestPocketValue()).toBe(11);
   expect(buildPlayerWithOffSuitCards("4","4").highestPocketValue()).toBe(4);
 });
+
+test('Calculates Chen score as score of high card for connectors', () => {
+  expect(buildPlayerWithOffSuitCards("A","K").chenScore()).toBe(10);
+  expect(buildPlayerWithOffSuitCards("K","Q").chenScore()).toBe(8);
+  expect(buildPlayerWithOffSuitCards("Q","K").chenScore()).toBe(8);
+});
+
+test('Doubles Chen score for pairs', () => {
+  expect(buildPlayerWithOffSuitCards("K","K").chenScore()).toBe(16);
+  expect(buildPlayerWithOffSuitCards("2","2").chenScore()).toBe(5);
+});
+
+test('Adds 2 to Chen score for suited', () => {
+  expect(buildPlayerWithOffSuitedCards("A","K").chenScore()).toBe(12);
+  expect(buildPlayerWithOffSuitedCards("Q","K").chenScore()).toBe(10);
+});
+
+test('Substract for gaps in Chen score', () => {
+  expect(buildPlayerWithOffSuitCards("A","Q").chenScore()).toBe(9);
+  expect(buildPlayerWithOffSuitCards("Q","A").chenScore()).toBe(9);
+  expect(buildPlayerWithOffSuitCards("A","J").chenScore()).toBe(8);
+  expect(buildPlayerWithOffSuitCards("A","10").chenScore()).toBe(6);
+  expect(buildPlayerWithOffSuitCards("A","9").chenScore()).toBe(5);
+  expect(buildPlayerWithOffSuitCards("A","8").chenScore()).toBe(5);
+});
+
+test('Add correction for gaps for low cards in Chen score', () => {
+  expect(buildPlayerWithOffSuitCards("J","10").chenScore()).toBe(7);
+  expect(buildPlayerWithOffSuitCards("J","9").chenScore()).toBe(6);
+});
+
+test('Round half points up for Chen score', () => {
+    expect(buildPlayerWithOffSuitCards("9","7").chenScore()).toBe(5);
+});
+
+/*
+
+Round half point scores up. (e.g. 7.5 rounds up to 8)
+*/
