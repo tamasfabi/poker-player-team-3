@@ -7,7 +7,6 @@ class Player {
 
   static betRequest(gameState, bet) {
     var game = new GameState(gameState);
-    console.log(game.me().highestPocketValue());
     bet(0);
   }
 
