@@ -65,7 +65,7 @@ module.exports = {
       },
       {
           "rank": "6",
-          "suit": "hearts"
+          "suit": "diamonds"
       }
   ]
 };

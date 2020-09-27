@@ -1,4 +1,5 @@
 const PlayerState = require('./PlayerState');
+const Card = require('./Card');
 
 class GameState {
   constructor(gameState) {
@@ -33,6 +34,37 @@ class GameState {
   toRaiseByBlinds(n) { return this.toRaise() + n * this.bigBlind(); }
   
   playersCount() { return this.gameState.players.length }
+  
+  suitCounts() {
+    const suits = ['spades','clubs','hearts','diamonds']
+    return suits.reduce((obj, s) => {
+      const holeCount = this.me().holeCards().filter(c => c.suit() == s).length;
+      const communityCount = this.communityCards().filter(c => c.suit() == s).length;
+      return { ...obj, [s]: 
+        {
+          "hole": holeCount,
+          "community": communityCount,
+          "total": holeCount + communityCount
+        }
+      };
+    }, {})
+  }
+  
+  
+  rankCounts() {
+    const ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
+    return ranks.reduce((obj, r) => {
+      const holeCount = this.me().holeCards().filter(c => c.rank() == r).length;
+      const communityCount = this.communityCards().filter(c => c.rank() == r).length;
+      return { ...obj, [r]: 
+        {
+          "hole": holeCount,
+          "community": communityCount,
+          "total": holeCount + communityCount
+        }
+      };
+    }, {})
+  }
   
   /** Betting position tells you if you are betting early or late.
    *  If this value is 1, you are the first to make a bet when there is the 

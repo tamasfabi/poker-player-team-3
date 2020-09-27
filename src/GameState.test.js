@@ -24,6 +24,54 @@ test('Raise by blinds', () => {
   expect(buildGameStateWithDefaults({}).toRaiseByBlinds(2)).toBe(520);
 });
 
+test('Suit counts', () => {
+  expect(buildGameStateWithDefaults({}).suitCounts()).toEqual({
+       "clubs": {
+         "community": 1,
+         "hole": 0,
+         "total": 1,
+       },
+       "diamonds": {
+         "community": 1,
+         "hole": 0,
+         "total": 1,
+       },
+       "hearts": {
+         "community": 1,
+         "hole": 1,
+         "total": 2,
+       },
+       "spades": {
+         "community": 2,
+         "hole": 1,
+         "total": 3,
+       },
+     });
+});
+
+test('Rank counts', () => {
+  expect(buildGameStateWithDefaults({}).rankCounts()['A']).toEqual({
+    "community": 2,
+    "hole": 0,
+    "total": 2,
+   });
+  expect(buildGameStateWithDefaults({}).rankCounts()['K']).toEqual({
+    "community": 0,
+    "hole": 1,
+    "total": 1,
+   });
+  expect(buildGameStateWithDefaults({}).rankCounts()['6']).toEqual({
+    "community": 2,
+    "hole": 1,
+    "total": 3,
+   });
+  expect(buildGameStateWithDefaults({}).rankCounts()['2']).toEqual({
+    "community": 0,
+    "hole": 0,
+    "total": 0,
+   });
+});
+
 test('Betting round', () => {
   const cards = defaultGameState.community_cards;
   
