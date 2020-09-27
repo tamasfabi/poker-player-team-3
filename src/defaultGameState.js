@@ -58,6 +58,14 @@ module.exports = {
       {
           "rank": "6",
           "suit": "clubs"
+      },
+      {
+          "rank": "A",
+          "suit": "spades"
+      },
+      {
+          "rank": "6",
+          "suit": "hearts"
       }
   ]
 };

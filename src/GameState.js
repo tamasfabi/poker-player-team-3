@@ -25,8 +25,45 @@ class GameState {
     return new PlayerState(this.gameState.players[this.gameState.in_action]);
   }
   
+  /* Return this value if you want to call */
   toCall() { return this.currentBuyIn() - this.me().bet(); }
+  /* Return this value if you want to make the smallest possible raise */
   toRaise() { return this.toCall() + this.minimumRaise(); }
+  /* Use this function to raise by diven amount of big blinds */
+  toRaiseByBlinds(n) { return this.toRaise() + n * this.bigBlind(); }
+  
+  playersCount() { return this.gameState.players.length }
+  
+  /** Betting position tells you if you are betting early or late.
+   *  If this value is 1, you are the first to make a bet when there is the 
+   *  least amount of information available.
+   *  If this value is equal to the nubmer of players you are the dealer
+   *  and you make your bet after everyone else 
+   */
+  bettingPosition() {
+    return (
+      this.gameState.in_action - 
+      this.gameState.dealer + 
+      this.playersCount() - 1
+    ) % this.playersCount() + 1;
+  }
+  
+  bettingRound() {
+    return { 
+      0: "pre flop",
+      3: "flop",
+      4: "turn",
+      5: "river"
+    }[this.gameState.community_cards.length];
+  }
+  
+  activePlayersInGame() {
+    return this.players().filter(p => p.status() !== "out");
+  }
+  
+  activePlayersInHand() {
+    return this.players().filter(p => p.status() === "active");
+  }
   
 }
 
