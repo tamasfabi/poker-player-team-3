@@ -14,7 +14,7 @@ class Card {
     }
   }
   
-  chenScore() {
+  score() {
     return {
       "A": 10,
       "K": 8,

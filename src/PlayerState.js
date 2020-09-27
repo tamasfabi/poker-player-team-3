@@ -31,9 +31,9 @@ class PlayerState {
     return Math.abs(cards[0].value() - cards[1].value()) - 1;
   }
   
-  chenScore() {
+  score() {
     const cards = this.holeCards();
-    var score = Math.max(...cards.map(c => c.chenScore()));
+    var score = Math.max(...cards.map(c => c.score()));
     
     if(this.hasPocketPair()) {
       score = Math.max(5, score * 2);

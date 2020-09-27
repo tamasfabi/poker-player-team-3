@@ -11,8 +11,8 @@ const valueFor = (rank) => {
   return buildCard(rank, "spades").value();
 };
 
-const chenScoreFor = (rank) => {
-  return buildCard(rank, "spades").chenScore();
+const scoreFor = (rank) => {
+  return buildCard(rank, "spades").score();
 };
 
 test('Calculates values correctly', () => {
@@ -26,12 +26,12 @@ test('Calculates values correctly', () => {
 });
 
 
-test('Calculates Chen score correctly', () => {
-  expect(chenScoreFor("A")).toBe(10);
-  expect(chenScoreFor("K")).toBe(8);
-  expect(chenScoreFor("Q")).toBe(7);
-  expect(chenScoreFor("J")).toBe(6);
-  expect(chenScoreFor("10")).toBe(5);
-  expect(chenScoreFor("9")).toBe(4.5);
-  expect(chenScoreFor("3")).toBe(1.5);
+test('Calculates score correctly', () => {
+  expect(scoreFor("A")).toBe(10);
+  expect(scoreFor("K")).toBe(8);
+  expect(scoreFor("Q")).toBe(7);
+  expect(scoreFor("J")).toBe(6);
+  expect(scoreFor("10")).toBe(5);
+  expect(scoreFor("9")).toBe(4.5);
+  expect(scoreFor("3")).toBe(1.5);
 });
