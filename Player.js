@@ -53,7 +53,7 @@ class Player {
     } else {
       const score = me.score();
       console.log({ score });
-      if (score > 8) {
+      if (score > 6) {
         bet(me.stack());
       }
       bet(30);
