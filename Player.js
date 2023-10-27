@@ -9,10 +9,31 @@ class Player {
     var game = new GameState(gameState);
     const me = game.me();
 
-    // ha parunk van
-    if (me.hasPocketPair()) {
-      bet(me.game.currentBuyIn() || 10);
+    // 0: "pre flop",
+    // 3: "flop",
+    // 4: "turn",
+    // 5: "river"]
+    const hasPair = me.hasPocketPair()
+    const round = game.round();
+    const maxBet = game.currentBuyIn()
+    if (round === 0) {
+      if (hasPair) {
+        bet((maxBet || 10));
+      }
+    } else if (round === 3) {
+      if (hasPair) {
+        bet((maxBet || 20));
+      }
+    } else if (round === 4) {
+      if (hasPair) {
+        bet((maxBet || 30));
+      }
+    } else if (round === 5) {
+      if (hasPair) {
+        bet((maxBet || 30));
+      }
     }
+    // ha parunk van
   }
 
   static showdown(gameState) {}
