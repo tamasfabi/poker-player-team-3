@@ -4,7 +4,7 @@ const getTriple = (communityCards, myCards) => {
   const rankCounts = [...communityCards, ...myCards].reduce((acc, card) => {
     const rank = card.rank || card.rank();
     acc[rank] = (acc[rank] || 0) + 1;
-    return rankCounts;
+    return acc;
   }, {});
   const hasBigCard = Object.values(rankCounts).find((count) => count >= 3);
   return hasBigCard;
