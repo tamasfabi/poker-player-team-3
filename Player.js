@@ -7,11 +7,16 @@ class Player {
 
   static betRequest(gameState, bet) {
     var game = new GameState(gameState);
-    console.log('ok');
+    const me = game.me();
+    if (me.hasPocketPair()) {
+      bet(me.highestPocketValue());
+    }
+    bet(0)
+    // console.log('ok');
     // if (communityCards[0]) {
     //   console.log(communityCards);
     // }
-    bet(0);
+    // bet(0);
   }
 
   static showdown(gameState) {}
