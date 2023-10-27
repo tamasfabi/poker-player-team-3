@@ -1,12 +1,13 @@
 const GameState = require("./src/GameState");
 
 const getTriple = (communityCards, myCards) => {
-  const rankCounts = communityCards.reduce((acc, card) => {
-    const rank = card.rank();
+  const rankCounts = [...communityCards, ...myCards].reduce((acc, card) => {
+    const rank = card.rank || card.rank();
     acc[rank] = (acc[rank] || 0) + 1;
-    console.log({ rankCounts });
     return rankCounts;
   }, {});
+  const hasBigCard = Object.values(rankCounts).find((count) => count >= 3);
+  return hasBigCard;
 };
 
 class Player {
@@ -25,20 +26,19 @@ class Player {
     const hasPair = me.hasPocketPair();
     const maxValue = me.highestPocketValue();
     const round = game.round();
-    console.log({ round });
     const buyin = game.currentBuyIn() || 0;
-    console.log({ buyin });
     const currentScore = me.score();
-    console.log({ currentScore });
     const betBase = game.bigBlind() + currentScore;
-    console.log(betBase);
     const communityCards = game.communityCards();
-    console.log({ me });
-    console.log(me.holeCards());
+    const myCards = me.holeCards();
+    console.log({ communityCards });
+    console.log({ myCards });
 
     if (round >= 3) {
-      const triple = getTriple(communityCards, []);
-      console.log({ triple });
+      const triple = getTriple(communityCards, myCards);
+      if (triple) {
+        bet(me.stack());
+      }
     }
 
     if (hasPair) {
