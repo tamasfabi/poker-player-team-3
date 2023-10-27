@@ -17,31 +17,31 @@ class Player {
     // const maxValue = me.highestPocketValue()
     const round = game.round();
     console.log({ round });
-    const maxBet = game.currentBuyIn() || 0;
-    console.log({ maxBet });
+    const buyin = game.currentBuyIn() || 0;
+    console.log({ buyin });
     const currentScore = me.score();
     console.log({ currentScore });
-    const betBase = game.bigBlind();
+    const betBase = game.bigBlind() + currentScore;
     console.log(betBase)
 
     let newBet = 0;
     if (hasPair) {
       if (round === 0) {
-        newBet = maxBet || 10;
+        newBet += 10;
       } else if (round === 3) {
-        newBet = maxBet || 20;
+        newBet += 20;
       } else if (round === 4) {
-        newBet = maxBet || 30;
+        newBet += 30;
       } else if (round === 5) {
-        newBet = maxBet || 40;
+        newBet += 40;
       }
-      newBet = newBet + betBase;
+      newBet = newBet + betBase + buyin;
       console.log({ newBet });
       bet(newBet);
     } else {
-      newBet = newBet + betBase + 2;
+      newBet = newBet + betBase + 2 + buyin;
       console.log({ newBet });
-      bet(2);
+      bet(newBet);
     }
   }
 
