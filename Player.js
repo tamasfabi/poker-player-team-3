@@ -12,28 +12,27 @@ class Player {
     // 0: "pre flop",
     // 3: "flop",
     // 4: "turn",
-    // 5: "river"]
-    const hasPair = me.hasPocketPair()
+    // 5: "river"
+    const hasPair = me.hasPocketPair();
+    // const maxValue = me.highestPocketValue()
     const round = game.round();
-    const maxBet = game.currentBuyIn()
-    if (round === 0) {
-      if (hasPair) {
-        bet((maxBet || 10));
+    const maxBet = game.currentBuyIn() || 0;
+    const currentScore = me.score();
+
+    if (hasPair) {
+      if (round === 0) {
+        const newBet = (maxBet || 1) * currentScore;
+      } else if (round === 3) {
+        const newBet = (maxBet || 2) * currentScore;
+      } else if (round === 4) {
+        const newBet = (maxBet || 2) * currentScore;
+      } else if (round === 5) {
+        const newBet = (maxBet || 2) * currentScore;
       }
-    } else if (round === 3) {
-      if (hasPair) {
-        bet((maxBet || 20));
-      }
-    } else if (round === 4) {
-      if (hasPair) {
-        bet((maxBet || 30));
-      }
-    } else if (round === 5) {
-      if (hasPair) {
-        bet((maxBet || 30));
-      }
+      bet(newBet);
+    } else {
+      bet(2);
     }
-    // ha parunk van
   }
 
   static showdown(gameState) {}
