@@ -16,7 +16,7 @@ const getTriple = (communityCards, myCards) => {
 
 class Player {
   static get VERSION() {
-    return "0.8";
+    return "0.9";
   }
 
   static betRequest(gameState, bet) {
