@@ -1,5 +1,14 @@
 const GameState = require("./src/GameState");
 
+const getTriple = (communityCards, myCards) => {
+  const rankCounts = communityCards.reduce((acc, card) => {
+    const rank = card.rank();
+    acc[rank] = (acc[rank] || 0) + 1;
+    console.log({ rankCounts });
+    return rankCounts;
+  }, {});
+};
+
 class Player {
   static get VERSION() {
     return "0.4";
@@ -14,7 +23,7 @@ class Player {
     // 4: "turn",
     // 5: "river"
     const hasPair = me.hasPocketPair();
-    // const maxValue = me.highestPocketValue()
+    const maxValue = me.highestPocketValue();
     const round = game.round();
     console.log({ round });
     const buyin = game.currentBuyIn() || 0;
@@ -23,29 +32,23 @@ class Player {
     console.log({ currentScore });
     const betBase = game.bigBlind() + currentScore;
     console.log(betBase);
+    const communityCards = game.communityCards();
+    const myCards = me.card();
+    console.log({ myCards });
 
-    let newBet = 0;
+    if (round >= 3) {
+      const triple = getTriple(communityCards, myCards);
+      console.log({ triple });
+    }
+
     if (hasPair) {
-      me.stack()
-      bet(me.stack())
-      // if (round === 0) {
-      //   newBet += 10;
-      // } else if (round === 3) {
-      //   const cards = game.communityCards();
-      //   console.log({ cards });
-      //   newBet += 20;
-      // } else if (round === 4) {
-      //   newBet += 30;
-      // } else if (round === 5) {
-      //   newBet += 40;
-      // }
-      // newBet = newBet + betBase + buyin;
-      // console.log({ newBet });
-      // bet(newBet);
+      if (maxValue > 10) {
+        bet(me.stack());
+      } else {
+        bet(me.stack() / 3);
+      }
     } else {
-      newBet = newBet + betBase + 2 + buyin;
-      console.log({ newBet });
-      bet(newBet);
+      bet(30);
     }
   }
 
