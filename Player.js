@@ -11,7 +11,7 @@ const getTriple = (communityCards, myCards) => {
 
 class Player {
   static get VERSION() {
-    return "0.4";
+    return "0.5";
   }
 
   static betRequest(gameState, bet) {
@@ -33,11 +33,11 @@ class Player {
     const betBase = game.bigBlind() + currentScore;
     console.log(betBase);
     const communityCards = game.communityCards();
-    const myCards = me.card();
-    console.log({ myCards });
+    console.log({ me });
+    console.log(me.holeCards());
 
     if (round >= 3) {
-      const triple = getTriple(communityCards, myCards);
+      const triple = getTriple(communityCards, []);
       console.log({ triple });
     }
 
