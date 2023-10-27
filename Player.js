@@ -2,7 +2,7 @@ const GameState = require("./src/GameState");
 
 class Player {
   static get VERSION() {
-    return "0.3";
+    return "0.4";
   }
 
   static betRequest(gameState, bet) {
@@ -22,22 +22,26 @@ class Player {
     const currentScore = me.score();
     console.log({ currentScore });
     const betBase = game.bigBlind() + currentScore;
-    console.log(betBase)
+    console.log(betBase);
 
     let newBet = 0;
     if (hasPair) {
-      if (round === 0) {
-        newBet += 10;
-      } else if (round === 3) {
-        newBet += 20;
-      } else if (round === 4) {
-        newBet += 30;
-      } else if (round === 5) {
-        newBet += 40;
-      }
-      newBet = newBet + betBase + buyin;
-      console.log({ newBet });
-      bet(newBet);
+      me.stack()
+      bet(me.stack())
+      // if (round === 0) {
+      //   newBet += 10;
+      // } else if (round === 3) {
+      //   const cards = game.communityCards();
+      //   console.log({ cards });
+      //   newBet += 20;
+      // } else if (round === 4) {
+      //   newBet += 30;
+      // } else if (round === 5) {
+      //   newBet += 40;
+      // }
+      // newBet = newBet + betBase + buyin;
+      // console.log({ newBet });
+      // bet(newBet);
     } else {
       newBet = newBet + betBase + 2 + buyin;
       console.log({ newBet });
