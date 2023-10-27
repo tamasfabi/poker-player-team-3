@@ -51,6 +51,8 @@ class Player {
       //   bet(Math.max(buyin, me.stack() / 5));
       // }
     } else {
+      const score = me.score();
+      console.log({ score });
       bet(30);
     }
   }
