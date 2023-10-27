@@ -2,21 +2,17 @@ const GameState = require("./src/GameState");
 
 class Player {
   static get VERSION() {
-    return "0.1";
+    return "0.2";
   }
 
   static betRequest(gameState, bet) {
     var game = new GameState(gameState);
     const me = game.me();
+
+    // ha parunk van
     if (me.hasPocketPair()) {
-      bet(me.highestPocketValue());
+      bet(me.game.currentBuyIn() || 10);
     }
-    bet(0)
-    // console.log('ok');
-    // if (communityCards[0]) {
-    //   console.log(communityCards);
-    // }
-    // bet(0);
   }
 
   static showdown(gameState) {}
