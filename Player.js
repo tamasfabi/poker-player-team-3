@@ -33,13 +33,11 @@ class Player {
     const betBase = game.bigBlind();
     const communityCards = game.communityCards();
     const myCards = me.holeCards();
-    console.log({ communityCards });
+    console.log({ communityCards, myCards });
 
-    if (round >= 3) {
-      const triple = getTriple(communityCards, myCards);
-      if (triple) {
-        bet(me.stack());
-      }
+    const triple = getTriple(communityCards, myCards);
+    if (triple) {
+      bet(me.stack());
     }
 
     if (hasPair) {
