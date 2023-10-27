@@ -6,13 +6,15 @@ const getTriple = (communityCards, myCards) => {
     acc[rank] = (acc[rank] || 0) + 1;
     return acc;
   }, {});
+  console.log({ rankCounts });
   const hasBigCard = Object.values(rankCounts).find((count) => count >= 3);
+  console.log({ hasBigCard });
   return hasBigCard;
 };
 
 class Player {
   static get VERSION() {
-    return "0.5";
+    return "0.6";
   }
 
   static betRequest(gameState, bet) {
@@ -32,7 +34,6 @@ class Player {
     const communityCards = game.communityCards();
     const myCards = me.holeCards();
     console.log({ communityCards });
-    console.log({ myCards });
 
     if (round >= 3) {
       const triple = getTriple(communityCards, myCards);
@@ -43,9 +44,9 @@ class Player {
 
     if (hasPair) {
       if (maxValue > 10) {
-        bet(me.stack());
-      } else {
         bet(me.stack() / 3);
+      } else {
+        bet(me.stack() / 5);
       }
     } else {
       bet(30);
