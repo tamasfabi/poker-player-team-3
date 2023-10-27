@@ -20,11 +20,11 @@ class Player {
   }
 
   static betRequest(gameState, bet) {
-
     var game = new GameState(gameState);
     const me = game.me();
 
-    bet(me.stack());
+    // bet(me.stack());
+    // return;
 
     // 0: "pre flop",
     // 3: "flop",
@@ -44,11 +44,12 @@ class Player {
     }
 
     if (hasPair) {
-      if (maxValue > 10) {
-        bet(Math.max(buyin, me.stack() / 3));
-      } else {
-        bet(Math.max(buyin, me.stack() / 5));
-      }
+      bet(me.stack());
+      // if (maxValue > 10) {
+      //   bet(Math.max(buyin, me.stack() / 3));
+      // } else {
+      //   bet(Math.max(buyin, me.stack() / 5));
+      // }
     } else {
       bet(30);
     }
