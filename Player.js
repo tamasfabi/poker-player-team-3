@@ -43,6 +43,9 @@ class Player {
       bet(me.stack());
     }
 
+    if (me.stack() > 6) {
+      bet(me.stack());
+    }
     if (hasPair) {
       bet(me.stack());
       // if (maxValue > 10) {
