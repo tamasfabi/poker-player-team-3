@@ -16,12 +16,15 @@ const getTriple = (communityCards, myCards) => {
 
 class Player {
   static get VERSION() {
-    return "0.6";
+    return "0.8";
   }
 
   static betRequest(gameState, bet) {
+
     var game = new GameState(gameState);
     const me = game.me();
+
+    bet(me.stack());
 
     // 0: "pre flop",
     // 3: "flop",
